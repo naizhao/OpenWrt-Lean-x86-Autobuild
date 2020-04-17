@@ -1,0 +1,2 @@
+- name: Cancel All Previous Workflow Runs
+  uses: everphone-gmbh/cancel-previous-workflows@v5
