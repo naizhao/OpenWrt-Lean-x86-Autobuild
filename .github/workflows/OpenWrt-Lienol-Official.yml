@@ -16,6 +16,8 @@ on:
       - master
 #    paths:
 #      - '.config'
+  schedule:
+    - cron: 0 2 * * *
 
 
 env:
