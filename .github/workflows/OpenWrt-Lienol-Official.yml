@@ -9,8 +9,8 @@
 name: Build OpenWrt-Lienol-Official
 
 on:
-  release:
-    types: published
+#  release:
+#    types: published
   push:
     branches:
       - master
@@ -115,7 +115,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
         tag_name: release-lienol-official-v${{ github.run_number }}
         release_name: Release Lienol Official ${{ github.run_number }}
@@ -126,7 +126,7 @@ jobs:
       id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: openwrt/bin/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz
