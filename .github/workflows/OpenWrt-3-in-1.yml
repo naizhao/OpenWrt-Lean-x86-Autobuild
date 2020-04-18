@@ -59,15 +59,15 @@ jobs:
 
     - name: Clone source code
       run: |
-      git clone --depth 1 $REPO_LEAN_URL -b $REPO_LEAN_BRANCH openwrt_lean
-      git clone --depth 1 $REPO_LIENOL_LEAN_URL -b $REPO_LIENOL_LEAN_BRANCH openwrt_lienol_lean
-      git clone --depth 1 $REPO_LIENOL_OFFICIAL_URL -b $REPO_LIENOL_OFFICIAL_BRANCH openwrt_lienol_official
+        git clone --depth 1 $REPO_LEAN_URL -b $REPO_LEAN_BRANCH openwrt_lean
+        git clone --depth 1 $REPO_LIENOL_LEAN_URL -b $REPO_LIENOL_LEAN_BRANCH openwrt_lienol_lean
+        git clone --depth 1 $REPO_LIENOL_OFFICIAL_URL -b $REPO_LIENOL_OFFICIAL_BRANCH openwrt_lienol_official
 
     - name: Update & install feeds
-      run:
-      cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
-      cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
-      cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
+      run: |
+        cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
+        cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
+        cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
