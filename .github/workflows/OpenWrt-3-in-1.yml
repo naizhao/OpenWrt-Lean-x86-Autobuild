@@ -65,9 +65,9 @@ jobs:
 
     - name: Update & install feeds
       run: |
-        cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
-        cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
-        cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a
+        cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
+        cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
+        cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
 
     - name: Load custom configuration
       run: |
