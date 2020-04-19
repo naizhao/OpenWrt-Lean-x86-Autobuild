@@ -20,6 +20,9 @@ on:
     - cron: 0 2 * * *
 
 env:
+  BUILD_LEAN: true
+  BUILD_LIENOL_LEAN: false
+  BUILD_LIENOL_OFFICIAL: false
   REPO_LEAN_URL: https://github.com/coolsnowwolf/lede
   REPO_LIENOL_LEAN_URL: https://github.com/Lienol/openwrt
   REPO_LIENOL_OFFICIAL_URL: https://github.com/Lienol/openwrt
@@ -85,6 +88,7 @@ jobs:
 #   编译lean
     - name: Download package & Compile Lean
       id: download_compile_lean
+      if: env.BUILD_LEAN == 'true'
       run: |
         cd openwrt_lean
         make defconfig
@@ -99,6 +103,7 @@ jobs:
 #   编译lienol lean
     - name: Download package & Compile Lienol Lean
       id: download_compile_lienol_lean
+      if: env.BUILD_LIENOL_LEAN == 'true'
       run: |
         cd openwrt_lienol_lean
         make defconfig
@@ -110,9 +115,10 @@ jobs:
         cp ./bin/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz /mnt/openwrt/packages/lienol-lean-openwrt-x86-64-combined-ext4.img.gz
         echo "::set-output name=status_lienol_lean::success"
 
-#   编译lean
+#   编译lienol official
     - name: Download package & Compile Lienol Official
       id: download_compile_lienol_official
+      if: env.BUILD_LIENOL_OFFICIAL == 'true'
       run: |
         cd openwrt_lienol_official
         make defconfig
