@@ -58,29 +58,7 @@ jobs:
         curl -fsSL https://raw.githubusercontent.com/P3TERX/dotfiles/master/.bashrc >> ~/.bashrc
         # 利用挂载在 /mnt/ 的 14G 额外空间:
         sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/packages
-        
 
-    - name: Clone source code
-      run: |
-        git clone --depth 1 $REPO_LEAN_URL -b $REPO_LEAN_BRANCH openwrt_lean
-        git clone --depth 1 $REPO_LIENOL_LEAN_URL -b $REPO_LIENOL_LEAN_BRANCH openwrt_lienol_lean
-        git clone --depth 1 $REPO_LIENOL_OFFICIAL_URL -b $REPO_LIENOL_OFFICIAL_BRANCH openwrt_lienol_official
-
-    - name: Update & install feeds
-      run: |
-        cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
-        cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
-        cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
-
-    - name: Load custom configuration
-      run: |
-        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lean/.config
-        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lienol_lean/.config
-        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lienol_official/.config
-        chmod +x $DIY_SH
-        cd openwrt_lean && ../$DIY_SH && cd ..
-        cd openwrt_lienol_lean && ../$DIY_SH && cd ..
-        
     - name: SSH connection to Actions
       uses: P3TERX/debugger-action@master
       if: env.SSH_ACTIONS == 'true'
@@ -90,6 +68,11 @@ jobs:
       id: download_compile_lean
       if: env.BUILD_LEAN == 'true'
       run: |
+        git clone --depth 1 $REPO_LEAN_URL -b $REPO_LEAN_BRANCH openwrt_lean
+        cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
+        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lean/.config
+        chmod +x $DIY_SH
+        cd openwrt_lean && ../$DIY_SH && cd ..
         cd openwrt_lean
         make defconfig
         make download -j8
@@ -105,6 +88,11 @@ jobs:
       id: download_compile_lienol_lean
       if: env.BUILD_LIENOL_LEAN == 'true'
       run: |
+        git clone --depth 1 $REPO_LIENOL_LEAN_URL -b $REPO_LIENOL_LEAN_BRANCH openwrt_lienol_lean
+        cd openwrt_lienol_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
+        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lienol_lean/.config
+        chmod +x $DIY_SH
+        cd openwrt_lienol_lean && ../$DIY_SH && cd ..
         cd openwrt_lienol_lean
         make defconfig
         make download -j8
@@ -120,6 +108,9 @@ jobs:
       id: download_compile_lienol_official
       if: env.BUILD_LIENOL_OFFICIAL == 'true'
       run: |
+        git clone --depth 1 $REPO_LIENOL_OFFICIAL_URL -b $REPO_LIENOL_OFFICIAL_BRANCH openwrt_lienol_official
+        cd openwrt_lienol_official && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
+        [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lienol_official/.config
         cd openwrt_lienol_official
         make defconfig
         make download -j8
