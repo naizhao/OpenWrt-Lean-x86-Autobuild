@@ -123,7 +123,7 @@ jobs:
 
     - name: Upload firmware packages
       uses: actions/upload-artifact@master
-      if: steps.organize.outputs.status_lean == 'success' && steps.organize.outputs.status_lienol_lean == 'success' && steps.organize.outputs.status_lienol_official == 'success' && !cancelled()
+      if: !cancelled()
       with:
         name: OpenWrt_firmware_Package
         path: /mnt/openwrt/packages/
