@@ -133,8 +133,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
-        tag_name: release-openwrt-v${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
+        tag_name: release-openwrt-3in1-v${{ github.run_number }}
+        release_name: Release 3-in-1 ${{ github.run_number }}
         draft: false
         prerelease: false
    

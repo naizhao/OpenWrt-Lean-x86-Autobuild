@@ -120,7 +120,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
         tag_name: release-lean-k3-v${{ github.run_number }}
-        release_name: Release Lean ${{ github.run_number }}
+        release_name: Release Lean K3 ${{ github.run_number }}
         draft: false
         prerelease: false
    
