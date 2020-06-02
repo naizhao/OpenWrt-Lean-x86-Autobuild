@@ -142,7 +142,7 @@ jobs:
       id: upload-release-asset 
       uses: AButler/upload-release-assets@v2.0
       with:
-        files: '/mnt/openwrt/packages/*'
+        files: 'openwrt*/bin/targets/*/*/*'
         repo-token: ${{ secrets.SuperSecret }}
         release-tag: release-openwrt-v${{ github.run_number }}
 
