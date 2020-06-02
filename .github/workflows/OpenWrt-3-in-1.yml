@@ -138,12 +138,19 @@ jobs:
         draft: false
         prerelease: false
    
-    - name: Upload Release Asset
+#    - name: Upload Release Asset
+#      id: upload-release-asset 
+#      uses: AButler/upload-release-assets@v2.0
+#      with:
+#        files: 'openwrt*/bin/targets/*/*/*'
+#        repo-token: ${{ secrets.SuperSecret }}
+#        release-tag: release-openwrt-v${{ github.run_number }}
+
+    - name: Upload release asset
       id: upload-release-asset 
-      uses: AButler/upload-release-assets@v2.0
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
-        files: 'openwrt*/bin/targets/*/*/*'
-        repo-token: ${{ secrets.SuperSecret }}
-        release-tag: release-openwrt-v${{ github.run_number }}
-
-
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: /mnt/openwrt/packages/
