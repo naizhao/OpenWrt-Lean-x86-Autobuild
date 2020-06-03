@@ -74,6 +74,7 @@ jobs:
         chmod +x $DIY_SH
         cd openwrt_lean && ../$DIY_SH && cd ..
         cd openwrt_lean
+        sed -i 's/\"#src-git\"/\"src-git\"/g' ./feeds.conf.default
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
