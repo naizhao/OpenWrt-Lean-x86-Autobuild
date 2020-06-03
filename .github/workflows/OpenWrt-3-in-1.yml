@@ -72,7 +72,7 @@ jobs:
         cd openwrt_lean/package
         git clone https://github.com/kenzok8/openwrt-packages.git
         git clone https://github.com/kenzok8/small.git
-        cd ..
+        cd ../..
         cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lean/.config
         chmod +x $DIY_SH
