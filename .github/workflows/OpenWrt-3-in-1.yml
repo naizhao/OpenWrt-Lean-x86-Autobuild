@@ -84,7 +84,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 V=s
+        make -j$(nproc) || make -j4 V=s
         cp ./bin/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz /mnt/openwrt/packages/lean-openwrt-x86-64-combined-ext4.img.gz
         echo "::set-output name=status_lean::success"
 
