@@ -69,12 +69,16 @@ jobs:
       if: env.BUILD_LEAN == 'true'
       run: |
         git clone --depth 1 $REPO_LEAN_URL -b $REPO_LEAN_BRANCH openwrt_lean
+        cd openwrt_lean/package
+        git clone https://github.com/kenzok8/openwrt-packages.git
+        git clone https://github.com/kenzok8/small.git
+        cd ..
         cd openwrt_lean && ln -s /mnt/openwrt/dl ./dl && ./scripts/feeds update -a && ./scripts/feeds install -a && cd ..
         [ -e $CONFIG_FILE ] && cp $CONFIG_FILE openwrt_lean/.config
         chmod +x $DIY_SH
         cd openwrt_lean && ../$DIY_SH && cd ..
         cd openwrt_lean
-        sed -i 's/\"#src-git\"/\"src-git\"/g' ./feeds.conf.default
+        sed -i 's/#src-git/src-git/g' ./feeds.conf.default
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
