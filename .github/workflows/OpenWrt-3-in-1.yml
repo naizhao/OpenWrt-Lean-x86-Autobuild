@@ -11,13 +11,13 @@ name: Build OpenWrt-3-in-1
 on:
 #  release:
 #    types: published
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
 #    paths:
 #      - '.config'
-  schedule:
-    - cron: 0 2 * * *
+#  schedule:
+#    - cron: 0 2 * * *
 
 env:
   BUILD_LEAN: true

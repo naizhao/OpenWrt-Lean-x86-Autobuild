@@ -11,13 +11,13 @@ name: Build OpenWrt-Lean-K3
 on:
 #  release:
 #    types: published
-  push:
-    branches:
-      - master
+#  push:
+#    branches:
+#      - master
 #    paths:
 #      - '.config'
-  schedule:
-    - cron: 0 2 * * *
+#  schedule:
+#    - cron: 0 2 * * *
 #     watch:
 #       types: started
 
