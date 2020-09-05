@@ -18,6 +18,8 @@ on:
 #      - '.config'
 #  schedule:
 #    - cron: 0 2 * * *
+  watch:
+    types: started
 
 env:
   BUILD_LEAN: true
