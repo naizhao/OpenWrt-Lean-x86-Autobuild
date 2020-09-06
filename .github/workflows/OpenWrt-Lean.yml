@@ -48,6 +48,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        uname -a
         docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
@@ -117,7 +118,7 @@ jobs:
         echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
 
     - name: Check space usage
-      if: (!cancelled())
+      id: diskspace
       run:
         echo "======================="
         echo "Space usage:"
