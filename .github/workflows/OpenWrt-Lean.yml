@@ -118,7 +118,7 @@ jobs:
         echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
 
     - name: Check space usage
-      if: !cancelled()
+      if: (!cancelled())
       run:
         echo "======================="
         echo "Space usage:"
