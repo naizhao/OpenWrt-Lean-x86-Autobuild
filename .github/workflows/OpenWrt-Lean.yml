@@ -80,7 +80,6 @@ jobs:
     - name: Update feeds
       run: |
         cd openwrt
-#       sed -i 's/#src-git/src-git/g' ./feeds.conf.default
         ./scripts/feeds update -a
 
     - name: Install feeds
