@@ -29,7 +29,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   SSH_ACTIONS: false
-  UPLOAD_BIN_DIR: true
+  UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
@@ -116,7 +116,7 @@ jobs:
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "::set-env name=DEVICE_NAME::_$(cat DEVICE_NAME)"
-        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d%H%M")"
+        echo "::set-env name=FILE_DATE::_$(date +"%Y%m%d")"
         df -h
 
     - name: Check space usage
@@ -129,7 +129,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin_${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
     - name: Organize files
@@ -145,7 +145,7 @@ jobs:
       uses: actions/upload-artifact@master
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware_Lean_${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}
+        name: OpenWrt_firmware_Lean${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
@@ -168,8 +168,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.SuperSecret }}
       with:
-        tag_name: release-lean-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}
-        release_name: Release Lean ${{ env.DEVICE_NAME }} ${{ env.FILE_DATE }}
+        tag_name: release_lean${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        release_name: Release_Lean${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         draft: false
         prerelease: false
    
@@ -181,6 +181,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: openwrt/bin/targets/x86/64/openwrt-x86-64-generic-ext4-combined.img.gz
-        asset_name: lean-openwrt-x86-64-generic-combined-ext4-${{ env.FILE_DATE }}.img.gz
+        asset_name: lean_openwrt_x86-64_generic_combined_ext4${{ env.FILE_DATE }}.img.gz
         asset_content_type: application/zip
 
