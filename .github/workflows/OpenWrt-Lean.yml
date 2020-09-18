@@ -178,5 +178,5 @@ jobs:
       with:
         repo_token: ${{ secrets.SuperSecret }}
         file: openwrt/bin/targets/x86/64/*
-        tag: ${{ github.ref }}
+        tag: release_lean${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         file_glob: true
